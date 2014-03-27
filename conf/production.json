@@ -1,0 +1,16 @@
+{
+    "logging": {
+        "console": {            
+            "level": "warn",
+            "colorize": false
+        },
+        "file": {
+            "type": "File",
+            "filename": "defcon.log",
+            "maxsize": 1048576,
+            "maxFiles": 3,
+            "level": "info",
+            "colorize": false
+        }
+    }
+}

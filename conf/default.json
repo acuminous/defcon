@@ -1,0 +1,14 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 8080,
+        "workers": 1
+    },
+    "logging": {
+        "console": {            
+            "type": "Console",
+            "level": "debug",
+            "colorize": true
+        }
+    }
+}

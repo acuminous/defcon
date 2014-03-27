@@ -1,0 +1,10 @@
+static/dist/*
+node_modules/
+*.log
+.DS_Store
+*.swp
+*.swo
+*.iml
+bower_components/
+public/dist/*
+.idea

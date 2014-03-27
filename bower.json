@@ -1,0 +1,11 @@
+{
+  "name": "repocop",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "lodash": "~2.4.1",
+    "font-awesome": "~4.0.3",
+    "bootstrap": "~3.1.1",
+    "footable": "f5ba5e2a23cf9b32cf3f407b2acd56be64f35ddd"
+  }
+}
