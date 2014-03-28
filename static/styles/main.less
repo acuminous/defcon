@@ -6,24 +6,71 @@ body {
     padding: 65px 15px 15px;    
 }
 
-body.error {
-    figure {
-        text-align: center;
-        height: 70%;
+div.vdu {
 
-        img {
-            height: 70%;
+    ul {     
+        margin-left: auto;
+        margin-right: auto;
+
+
+        padding: 40px;       
+        text-shadow: 0 0 5px #DDF3FE;
+        font-size:50px;
+        font-family: "Courier New", Courier, monospace;
+        color:#DDF3FE;
+        background-color: black;
+        font-size:20px;
+        width:50%;
+        list-style-type: none;
+
+        li.error {
+            text-shadow: 0 0 10px red;
+            color:red;
         }
-
-        figcaption {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-
-            em {
-                color: red;
-                font-style: normal;
-            }
-        }        
     }
+    -webkit-font-smoothing: antialiased;    
+}
+
+ 
+div.cursor {
+  display: inline-block;
+  background: red;
+  margin-left: 1px;
+ 
+  -webkit-animation: blink 2s linear 0s infinite;
+  -moz-animation: blink 2s linear 0s infinite;
+  -ms-animation: blink 2s linear 0s infinite;
+  -o-animation: blink 2s linear 0s infinite;
+}
+
+@-webkit-keyframes blink {
+  0%   { background: #a00 }
+  47%  { background: #900 }
+  50%  { background: #000 }
+  97%  { background: #000 }
+  100% { background: #900 }
+}
+ 
+@-moz-keyframes blink {
+  0%   { background: #a00 }
+  47%  { background: #900 }
+  50%  { background: #000 }
+  97%  { background: #000 }
+  100% { background: #900 }
+}
+ 
+@-ms-keyframes blink {
+  0%   { background: #a00 }
+  47%  { background: #900 }
+  50%  { background: #000 }
+  97%  { background: #000 }
+  100% { background: #900 }
+}
+ 
+@-o-keyframes blink {
+  0%   { background: #a00 }
+  47%  { background: #900 }
+  50%  { background: #000 }
+  97%  { background: #000 }
+  100% { background: #900 }
 }
