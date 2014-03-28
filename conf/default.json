@@ -10,5 +10,8 @@
             "level": "debug",
             "colorize": true
         }
-    }
+    },
+    "plugins": [ 
+        "defcon-dashboard"
+    ]
 }

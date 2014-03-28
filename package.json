@@ -34,13 +34,10 @@
   "dependencies": {
     "async": "^0.2.10",
     "lodash": "^2.4.1",
-    "chalk": "^0.4.0",
     "nconf": "^0.6.9",
-    "github": "^0.1.14",
     "express": "^3.5.0",
     "express3-handlebars": "^0.5.0",
     "winston": "^0.7.2",
-    "recluster": "^0.3.6",
-    "moment": "^2.5.1"
+    "recluster": "^0.3.6"
   }
 }

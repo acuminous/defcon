@@ -21,8 +21,8 @@ cluster.on('exit', function(worker) {
 })
 
 var started = 0;
-cluster.on('message', function(worker, message) {
-    if (message.type === 'started') {
+cluster.on('message', function(worker, event) {
+    if (event.type === 'start') {
         logger.info('DEFCON %s is listening on %s:%s in %s', worker.workerID, config.server.host, config.server.port, environment);    
         if (++started >= config.server.workers) logger.info(quotes.startup()); 
     }

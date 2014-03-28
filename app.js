@@ -1,67 +1,67 @@
 var express = require('express');
 var exphbs = require('express3-handlebars');
-var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
 var config = require('./lib/util/config');
 var logger = require('./lib/util/logger');
 var environment = require('./lib/util/environment');
-var plugins = require('./lib/util/plugins');
-var handlebarsHelpers = require('./lib/util/handlebarsHelpers');
-var EventBus = require('./lib/EventBus');
-var eventBus = new EventBus();
+var HandlebarsHelpers = require('./lib/util/HandlebarsHelpers');
+var PluginFactory = require('./lib/plugin/PluginFactory');
+var Defcon = require('./lib/Defcon');
 var app = express();    
 
+var defcon = new Defcon();
 var staticDir = path.join(process.cwd(), 'static');
 var templatesDir = path.join(staticDir, 'templates');    
-var layoutsDir = path.join(templatesDir, 'layouts');
 var viewsDir = path.join(templatesDir, 'views');
-var pluginsDir = path.join(process.cwd(), 'node_modules');
 
-plugins.installed(function(err, plugins) {
+app.disable('x-powered-by');
+app.disable('view cache');    
+app.set('view engine', 'handlebars');
+app.set('views', viewsDir);
 
-    app.disable('x-powered-by');
+app.set('handlebarsConfig', handlebarsConfig = {
+    defaultLayout: 'main',
+    layoutsDir: path.join(templatesDir, 'layouts'),
+    partialsDir: [viewsDir],
+    helpers: new HandlebarsHelpers(defcon)
+});
 
-    var handlebarsConfig = {
-        defaultLayout: 'main',
-        layoutsDir: layoutsDir,
-        partialsDir: [viewsDir],
-        helpers: handlebarsHelpers        
-    }
-
-    app.set('view engine', 'handlebars');
-    app.disable('view cache');
-
-    app.get('/', function(req, res) {
-        app.set("views", viewsDir);        
-        res.render('home', { environment: environment })
-    })
-   
-    _.each(plugins, function(plugin) {
-        plugin.init(eventBus, app, handlebarsConfig);
-    })
-
-    app.engine('handlebars', exphbs(handlebarsConfig));
+new PluginFactory(defcon, app).createAll(config.plugins, function(err, plugins) {
+    if (err) return logger.die('Error initialising plugins: %s', err.message);
 
     app.use(app.router);    
     app.use('/', express.static(staticDir));
 
+    app.get('/', function(req, res) {
+        app.set('views', path.join(viewsDir));        
+        res.render('index', { 
+            environment: environment,            
+            defcon: defcon
+        });
+    })
+
+    _.each(plugins, function(plugin) {
+        defcon.registerPlugin(plugin);
+    });
+
+    app.engine('handlebars', exphbs(app.get('handlebarsConfig')));        
+
+    app.use(function(req, res, next){
+        app.set('views', viewsDir);
+        res.status(404).render('404', {
+            environment: environment,
+            defcon: defcon
+        });
+    });
 
     app.use(function(err, req, res, next){
         res.status(500).sendfile(path.join(staticDir, 'html', '500.html'));
         logger.error('Internal server error: %s', err.message);
     });
 
-    app.use(function(req, res, next){
-        res.status(404).sendfile(path.join(staticDir, 'html', '404.html'));
+    app.listen(config.server.port, config.server.host, function(err) {        
+        if (err) logger.die("Error starting DEFCON : %s", err.message);
+        defcon.notify('start');       
     });
-
-    app.listen(config.server.port, config.server.host, function(err) {
-        if (err) {
-            logger.error("Error starting DEFCON : %s", err.message);
-            process.exit(1);
-        }
-        process.send({ type: 'started' });
-        eventBus.emit('start', config.server.port, config.server.host);        
-    });    
 })
