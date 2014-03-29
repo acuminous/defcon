@@ -12,6 +12,7 @@
         }
     },
     "plugins": [ 
+        "defcon-rest-gateway",
         "defcon-dashboard"
     ]
 }

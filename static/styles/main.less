@@ -12,21 +12,28 @@ div.vdu {
         margin-left: auto;
         margin-right: auto;
 
+        border-radius:5px;        
 
         padding: 40px;       
-        text-shadow: 0 0 5px #DDF3FE;
-        font-size:50px;
-        font-family: "Courier New", Courier, monospace;
-        color:#DDF3FE;
         background-color: black;
-        font-size:20px;
         width:50%;
         list-style-type: none;
 
-        li.error {
-            text-shadow: 0 0 10px red;
-            color:red;
+
+        li {
+          text-shadow: 0 0 20px #DDF3FE;
+          font-size:50px;
+          font-family: "Courier New", Courier, monospace;
+          color: #DDF3FE;
+          font-weight: bold;
+          font-size:20px;
+
+          &.error {
+              text-shadow: 0 0 10px red;
+              color:red;
+          }
         }
+        
     }
     -webkit-font-smoothing: antialiased;    
 }
@@ -37,10 +44,10 @@ div.cursor {
   background: red;
   margin-left: 1px;
  
-  -webkit-animation: blink 2s linear 0s infinite;
-  -moz-animation: blink 2s linear 0s infinite;
-  -ms-animation: blink 2s linear 0s infinite;
-  -o-animation: blink 2s linear 0s infinite;
+  -webkit-animation: blink 1.4s linear 0s infinite;
+  -moz-animation: blink 1.4s linear 0s infinite;
+  -ms-animation: blink 1.4s linear 0s infinite;
+  -o-animation: blink 1.4s linear 0s infinite;
 }
 
 @-webkit-keyframes blink {

@@ -8,13 +8,16 @@
         <title>DEFCON</title>
         <link rel="stylesheet" type="text/css" href="/dist/css/defcon-libs.css" />
         <link rel="stylesheet" type="text/css" href="/dist/css/defcon.css" />
+        <script src="/dist/js/defcon-libs.js"></script>
+        <script src="/dist/js/defcon.js"></script>
 
-        {{#if plugin}}
-            {{#plugin plugin}}
-                <link rel="stylesheet" type="text/css" href="{{url}}/dist/css/bundle-libs.css" />
-                <link rel="stylesheet" type="text/css" href="{{url}}/dist/css/bundle.css" />            
-            {{/plugin}}
-        {{/if}}
+        {{#each plugin.css}}
+            <link rel="stylesheet" type="text/css" href="{{this}}" />
+        {{/each}}
+
+        {{#each plugin.js}}
+            <script src="{{this}}"></script>
+        {{/each}}
 
         <link rel="icon" type="image/png" href="images/defcon.png" />        
     </head>
@@ -34,9 +37,9 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         {{#each defcon.plugins}}
-                            {{#plugin this}}
-                                <li><a href="{{url}}">{{name}}</a></li> 
-                            {{/plugin}}    
+                            {{#if ui}}
+                                <li><a href="{{url}}"><i class="{{icon}}"></i> {{name}}</a></li> 
+                            {{/if}}    
                         {{/each}}
                     </ul>
                 </div>
@@ -46,15 +49,5 @@
         <div class="container">
             {{{body}}}
         </div>
-
-        <script src="/dist/js/defcon-libs.js"></script>
-        <script src="/dist/js/defcon.js"></script>
-
-        {{#if plugin}}
-            {{#plugin plugin}}
-                <script src="{{url}}/dist/js/bundle-libs.js"></script>
-                <script src="{{url}}/dist/js/bundle.js"></script>
-            {{/plugin}}
-        {{/if}}
     </body>
 </html>
