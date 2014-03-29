@@ -12,7 +12,11 @@
         }
     },
     "plugins": [ 
-        "defcon-rest-gateway",
-        "defcon-dashboard"
+        {
+            "id": "defcon-rest-gateway"
+        },
+        {
+            "id": "defcon-dashboard"
+        }
     ]
 }
