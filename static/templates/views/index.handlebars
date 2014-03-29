@@ -1,1 +1,10 @@
-<h1>Welcome to DEFCON</h1>
+<h2>Installed Plugins</h2>
+{{#each plugins}}
+    <ul>
+        <li>{{name}}</li>
+    </ul>
+{{else}}
+    <ul>                
+        <li>No plugins installed</li>
+    </ul>
+{{/each}}

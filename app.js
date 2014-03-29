@@ -36,8 +36,8 @@ new PluginFactory(defcon, app).createAll(config.plugins, function(err, plugins) 
     app.get('/', function(req, res) {
         app.set('views', path.join(viewsDir));        
         res.render('index', { 
-            environment: environment,            
-            defcon: defcon
+            defcon: defcon,
+            plugins: plugins            
         });
     })
 
@@ -50,7 +50,6 @@ new PluginFactory(defcon, app).createAll(config.plugins, function(err, plugins) 
     app.use(function(req, res, next){
         app.set('views', viewsDir);
         res.status(404).render('404', {
-            environment: environment,
             defcon: defcon
         });
     });
