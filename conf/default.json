@@ -16,7 +16,11 @@
             "id": "defcon-rest-gateway"
         },
         {
-            "id": "defcon-dashboard"
+            "id": "defcon-event-log",
+            "repository": {
+                "connectionUrl": "tcp:0//localhost:6379",
+                "expiry": 2678400
+            }
         }
     ]
 }

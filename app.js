@@ -27,6 +27,8 @@ app.set('handlebarsConfig', handlebarsConfig = {
     helpers: new HandlebarsHelpers(defcon)
 });
 
+app.set('logger', logger);
+
 new PluginFactory(defcon, app).createAll(config.plugins, function(err, plugins) {
     if (err) return logger.die('Error initialising plugins: %s', err.message);
 
