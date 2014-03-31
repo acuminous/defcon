@@ -19,40 +19,34 @@ app.disable('x-powered-by');
 app.disable('view cache');    
 app.set('view engine', 'handlebars');
 app.set('views', viewsDir);
+app.set('plugins', []);
 
-app.set('handlebarsConfig', handlebarsConfig = {
+app.engine('handlebars', exphbs({
     defaultLayout: 'main',
     layoutsDir: path.join(templatesDir, 'layouts'),
-    partialsDir: [viewsDir],
+    partialsDir: viewsDir,
     helpers: new HandlebarsHelpers(defcon)
-});
+}));
 
-app.set('logger', logger);
-
-new PluginFactory(defcon, app).createAll(config.plugins, function(err, plugins) {
+new PluginFactory({ defcon: defcon, logger: logger }).createAll(config.plugins, function(err, plugins) {
     if (err) return logger.die('Error initialising plugins: %s', err.message);
+
+    _.each(plugins, function(plugin) {
+        defcon.mountPlugin(app, plugin);
+    });
+
+    app.get('/', function(req, res) {
+        res.render('index', { 
+            defcon: defcon          
+        });
+    })
 
     app.use(app.router);    
     app.use('/', express.static(staticDir));
 
-    app.get('/', function(req, res) {
-        app.set('views', path.join(viewsDir));        
-        res.render('index', { 
-            defcon: defcon,
-            plugins: plugins            
-        });
-    })
-
-    _.each(plugins, function(plugin) {
-        defcon.registerPlugin(plugin);
-    });
-
-    app.engine('handlebars', exphbs(app.get('handlebarsConfig')));        
-
     app.use(function(req, res, next){
-        app.set('views', viewsDir);
         res.status(404).render('404', {
-            defcon: defcon
+            defcon: defcon       
         });
     });
 
