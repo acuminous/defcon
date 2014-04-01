@@ -29,7 +29,7 @@ app.engine('handlebars', exphbs({
 }));
 
 new PluginFactory({ defcon: defcon, logger: logger }).createAll(config.plugins, function(err, plugins) {
-    if (err) return logger.die('Error initialising plugins: %s', err.message);
+    if (err) return logger.die('Unable to start due to previous errors');
 
     _.each(plugins, function(plugin) {
         defcon.mountPlugin(app, plugin);
