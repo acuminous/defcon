@@ -1,10 +1,9 @@
 var recluster = require('recluster');
 var path = require('path');
-var fs = require('fs');
 var url = require('url');
 var logger = require('./lib/util/logger');
 var environment = require('./lib/util/environment');
-var config = require('./lib/util/config');
+var config = require('./conf');
 var quotes = require('./lib/util/quotes');
 
 var cluster = recluster('app.js', { workers: config.server.workers });

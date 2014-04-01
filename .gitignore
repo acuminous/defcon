@@ -9,3 +9,4 @@ bower_components/
 public/dist/*
 .idea
 runtime.json
+sophrosyne.json
