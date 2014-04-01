@@ -1,6 +1,6 @@
 {
-  "name": "defcon-main",
-  "version": "0.0.1",
+  "name": "defcon",
+  "version": "0.0.4",
   "description": "A container for DEFCON modules",
   "main": "cluster.js",
   "scripts": {
