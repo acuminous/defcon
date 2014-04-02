@@ -11,7 +11,7 @@ var Defcon = require('./lib/Defcon');
 var app = express();    
 
 var defcon = new Defcon();
-var staticDir = path.join(process.cwd(), 'static');
+var staticDir = path.join(__dirname, 'static');
 var templatesDir = path.join(staticDir, 'templates');    
 var viewsDir = path.join(templatesDir, 'views');
 
@@ -21,22 +21,26 @@ app.set('view engine', 'handlebars');
 app.set('views', viewsDir);
 app.set('plugins', []);
 
-app.engine('handlebars', exphbs({
+var handlebarsConfig = {
     defaultLayout: 'main',
     layoutsDir: path.join(templatesDir, 'layouts'),
-    partialsDir: viewsDir,
-    helpers: new HandlebarsHelpers(defcon)
-}));
+}
 
-new PluginFactory({ defcon: defcon, logger: logger }).createAll(config.plugins, function(err, plugins) {
+app.engine('handlebars', exphbs(_.defaults({
+    partialsDir: viewsDir,
+    helpers: new HandlebarsHelpers(defcon)    
+}, handlebarsConfig)));
+
+new PluginFactory({ defcon: defcon, logger: logger, handlebarsConfig: handlebarsConfig }).createAll(config.plugins, function(err, plugins) {
     if (err) return logger.die('Unable to start due to previous errors');
 
     _.each(plugins, function(plugin) {
-        defcon.mountPlugin(app, plugin);
+        defcon.registerPlugin(app, plugin);
     });
 
     app.get('/', function(req, res) {
-        res.render('index', { 
+        res.render('index', {
+            pageId: 'index', 
             defcon: defcon          
         });
     })

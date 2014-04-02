@@ -6,7 +6,9 @@ var environment = require('./lib/util/environment');
 var config = require('./conf');
 var quotes = require('./lib/util/quotes');
 
-var cluster = recluster('app.js', { workers: config.server.workers });
+
+var app = path.join(__dirname, 'app.js');
+var cluster = recluster(app, { workers: config.server.workers });
 cluster.run();
 
 process.on('SIGUSR2', function() {

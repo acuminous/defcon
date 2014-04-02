@@ -11,20 +11,22 @@
             "colorize": true
         }
     },
-    "plugins": [ 
-        {
-            "id": "defcon-rest-gateway"
-        },
-        {
-            "id": "defcon-event-log",
-            "repository": {
-                "redis": {
-                    "host": "localhost",
-                    "port": 6379,
-                    "db": 0
-                },
-                "expiry": 2678400
-            }
+    "plugins": {
+        "installed": [
+            "defcon-rest-gateway",
+            "defcon-event-log"
+        ],
+        "defcon-event-log": {
+            "redis": {
+                "host": "localhost",
+                "port": 6379,
+                "db": 0,
+                "options": {
+                    "enable_offline_queue": false
+                }
+            },
+            "pageSize": 14,
+            "pages": 10
         }
-    ]
+    }
 }
