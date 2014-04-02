@@ -6,7 +6,7 @@
     },
     "logging": {
         "console": {            
-            "type": "Console",
+            "transport": "Console",
             "level": "debug",
             "colorize": true
         }

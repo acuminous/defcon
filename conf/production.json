@@ -5,7 +5,7 @@
             "colorize": false
         },
         "file": {
-            "type": "File",
+            "transport": "File",
             "filename": "defcon.log",
             "maxsize": 1048576,
             "maxFiles": 3,
