@@ -8,12 +8,17 @@
 ## Installation
 ```bash
 mkdir defcon
-cd defcon
+pushd defcon
 npm install
+pushd node_modules/defcon
+bower install
+gulp install
+popd
 ```
 
 ## Starting
 ```bash
+cd $INSTALL_DIR
 NODE_ENV=production node node_modules/defcon/server.js
 ```
 DEFCON starts on localhost:8080 by default. You can over this (and any other configuration) from the command line, e.g.
