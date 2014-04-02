@@ -1,6 +1,6 @@
 {
   "name": "defcon",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "A container for DEFCON modules",
   "main": "server.js",
   "scripts": {
