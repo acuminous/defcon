@@ -24,6 +24,7 @@ DEFCON is useless without plugins. A basic set is provided via individual npm mo
 The recommended plugins are as follows. Please see their README.md files for installation and configuration.
 
 | Plugin | Description |
+|--------|-------------|
 | [REST Gateway](http://github.com/acuminous/defcon-rest-gateway) | Enables DEFCON to receive events via HTTP |
 | [Event Log](http://github.com/acuminous/defcon-event-log) | Displays a paginated, sortable & filterable table of events |
 | [Logstash UDP](http://github.com/acukinous/defcon-logstash-udp) | Forwards events to logstash via UDP |
@@ -57,7 +58,7 @@ The final configuration is a merge of the individual configuration files and the
 Since defcon is a container for plugins, it's configuration options are minimal. We suggest you add custom settings to /etc/defcon/defcon.json or in a file specified on via the command line, since this is the easiest 
 option for upgrades.
 
-'''js
+```js
 {
     "server": {
         "host": "0.0.0.0",
@@ -94,5 +95,5 @@ option for upgrades.
         }
     }
 }
-'''
+```
 
