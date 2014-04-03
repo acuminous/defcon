@@ -12,6 +12,16 @@ cd defcon
 npm install
 ```
 
+## Recommended Plugins
+DEFCON is useless without plugins. A basic set is provided via individual npm modules which should be installed (with ```npm install```) along side the main defcon module.
+
+### Event Log
+1. [REST Gateway](http://github.com/acuminous/defcon-rest-gateway) - enables DEFCON to receive events via HTTP
+1. [Event Log](http://github.com/acuminous/defcon-event-log) - displays a paginated, sortable & filterable table of events
+1. [Logstash UDP](http://github.com/acukinous/defcon-logstash-udp) - forwards events to logstash via UDP
+
+More plugins are planned and we welcome contributions.
+
 ## Starting
 ```bash
 NODE_ENV=production node node_modules/defcon/server.js
@@ -35,14 +45,31 @@ You can also specify an additional configuration file from the command line, e.g
 NODE_ENV=production node node_modules/defcon/server.js --config=/path/to/config.json
 ```
 
-Since defcon is a container for plugins, it's configuration options are minimal. However the install does 
-ship with a basic set of plugins to get you started...
+Since defcon is a container for plugins, it's configuration options are minimal.
 '''js
 {
     "server": {
         "host": "0.0.0.0",
         "port": 8080,
         "workers": 1
+    },
+    "plugins": {
+        // Specify the list of installed plugins. Order will dictate where the plugins appear in the UI
+        installed: [],
+
+        // Insert plugin configuration here, e.g.
+        "defcon-event-log": {
+            "redis": {
+                "host": "localhost",
+                "port": 6379,
+                "db": 0,
+                "options": {
+                    "enable_offline_queue": false
+                }
+            },
+            "pageSize": 14,
+            "pages": 10
+        }
     },
     "logging": {
         // Any entries will be passed directly to winston
@@ -54,33 +81,7 @@ ship with a basic set of plugins to get you started...
             "level": "info",
             "colorize": false
         }
-    },
-    "plugins": {
-        // A list of installed plugins, defcon-rest-gateway and defcon-event-log are installed by default
-        "installed": [
-            "defcon-rest-gateway",
-            "defcon-event-log"
-        ],
-        // Configuration for the plugins
-        "defcon-event-log": {
-            "redis": {
-                "host": "localhost",
-                "port": 6379,
-                "db": 0,
-
-                // The following options are passed straight through to the node redis module. 
-                // If you need a password, set it here
-                "options": {
-                    "enable_offline_queue": false
-                }
-            },
-            // pageSize controls the numbrer of events to display in the event-log
-            // pages controls the number of pages available for pagination
-            // surplus events (those after pageSize * pages) are deleted automatically
-            // If you want to retain events for longer install additional plugins, e.g. defcon-logstash-udp
-            "pageSize": 14,
-            "pages": 10
-        }
     }
 }
 '''
+

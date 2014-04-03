@@ -2,12 +2,10 @@ var fork = require('child_process').fork;
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var ngmin = require('gulp-ngmin');
 var replace = require('gulp-replace');
 var less = require('gulp-less');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
-var buster = require('gulp-buster');
 var exclude = require('gulp-ignore').exclude;
 
 var fonts = [
