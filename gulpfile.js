@@ -46,7 +46,6 @@ gulp.task('fonts', function() {
 gulp.task('scripts', function() {
     return gulp.src(scripts)
         .pipe(plumber())
-        .pipe(ngmin())
         .pipe(concat('defcon.js'))
         .pipe(uglify({outSourceMap: true}))  
         .pipe(gulp.dest('static/dist/js'));
@@ -55,7 +54,6 @@ gulp.task('scripts', function() {
 gulp.task('scriptLibs', function() {
     return gulp.src(scriptLibs)
         .pipe(plumber())
-        .pipe(ngmin())
         .pipe(concat('defcon-libs.js'))
         .pipe(uglify({outSourceMap: true}))
         .pipe(gulp.dest('static/dist/js'));

@@ -2,8 +2,6 @@
 
 ## Prerequisits
 1. nodejs
-1. bower
-1. gulp
 
 ## Installation
 ```bash
@@ -13,12 +11,22 @@ npm install
 ```
 
 ## Recommended Plugins
-DEFCON is useless without plugins. A basic set is provided via individual npm modules which should be installed (with ```npm install```) along side the main defcon module.
+DEFCON is useless without plugins. A basic set is provided via individual npm modules which should be installed (with ```npm install```) from the defcon installiation directory, so that the modules are installed as syblings of defcon rather than children, e.g.
 
-### Event Log
-1. [REST Gateway](http://github.com/acuminous/defcon-rest-gateway) - enables DEFCON to receive events via HTTP
-1. [Event Log](http://github.com/acuminous/defcon-event-log) - displays a paginated, sortable & filterable table of events
-1. [Logstash UDP](http://github.com/acukinous/defcon-logstash-udp) - forwards events to logstash via UDP
+```
+/var/opt/defcon$ tree -d -L 2
+.
+└── node_modules
+    ├── defcon
+    ├── defcon-event-log
+    └── defcon-rest-gateway
+```
+The recommended plugins are as follows. Please see their README.md files for installation and configuration.
+
+| Plugin | Description |
+| [REST Gateway](http://github.com/acuminous/defcon-rest-gateway) | Enables DEFCON to receive events via HTTP |
+| [Event Log](http://github.com/acuminous/defcon-event-log) | Displays a paginated, sortable & filterable table of events |
+| [Logstash UDP](http://github.com/acukinous/defcon-logstash-udp) | Forwards events to logstash via UDP |
 
 More plugins are planned and we welcome contributions.
 
@@ -37,15 +45,18 @@ Configuration is loaded from the following files if they exist
 
 1. $INSTALL_DIR/conf/default.json
 1. $INSTALL_DIR/conf/<environment>.json
-1. $INSTALL_DIR/conf/<host>.json
+1. $INSTALL_DIR/conf/<hostname>.json
 1. $INSTALL_DIR/etc/defcon/defcon.json
 
 You can also specify an additional configuration file from the command line, e.g. 
 ```bash
 NODE_ENV=production node node_modules/defcon/server.js --config=/path/to/config.json
 ```
+The final configuration is a merge of the individual configuration files and the command line arguments.
 
-Since defcon is a container for plugins, it's configuration options are minimal.
+Since defcon is a container for plugins, it's configuration options are minimal. We suggest you add custom settings to /etc/defcon/defcon.json or in a file specified on via the command line, since this is the easiest 
+option for upgrades.
+
 '''js
 {
     "server": {
