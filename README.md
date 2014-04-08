@@ -7,7 +7,7 @@
 ```bash
 mkdir defcon
 cd defcon
-npm install
+npm install defcon
 ```
 
 ## Recommended Plugins
