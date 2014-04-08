@@ -27,7 +27,7 @@ The recommended plugins are as follows. Please see their README.md files for ins
 |--------|-------------|
 | [REST Gateway](http://github.com/acuminous/defcon-rest-gateway) | Enables DEFCON to receive events via HTTP |
 | [Event Log](http://github.com/acuminous/defcon-event-log) | Displays a paginated, sortable & filterable table of events |
-| [Logstash UDP](http://github.com/acukinous/defcon-logstash-udp) | Forwards events to logstash via UDP |
+| [Logstash UDP](http://github.com/acuminous/defcon-logstash-udp) | Forwards events to logstash via UDP |
 
 More plugins are planned and we welcome contributions.
 
