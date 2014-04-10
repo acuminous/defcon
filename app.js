@@ -32,7 +32,10 @@ app.engine('handlebars', exphbs(_.defaults({
 }, handlebarsConfig)));
 
 new PluginFactory({ defcon: defcon, logger: logger, handlebarsConfig: handlebarsConfig }).createAll(config.plugins, function(err, plugins) {
-    if (err) return logger.die('Unable to start due to previous errors');
+    if (err) {
+        logger.error('Unable to start due to previous errors');
+        throw(err);
+    };
 
     _.each(plugins, function(plugin) {
         defcon.registerPlugin(app, plugin);

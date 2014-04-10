@@ -1,10 +1,9 @@
-<h2>Installed Plugins</h2>
-{{#each defcon.plugins}}
-    <ul>
-        <li>{{name}}</li>
-    </ul>
-{{else}}
-    <ul>                
-        <li>No plugins installed</li>
-    </ul>
-{{/each}}
+<div class="container">
+    {{#if defcon.plugins}}
+    <h2>Congratulations!</h2>
+    <p>You've successfully installed DEFCON. If you get stuck or have any suggestions, please create an issue <a href="https://github.com/acuminous/defcon-main">here</a>.
+    {{else}}
+    <h2>Congratulations!</h2>
+    <p>You've successfully installed DEFCON. However it appears you haven't installed / configured any plugins. We suggest you start with <a href="github.com/acuminous/defcon-plugins-plugin">this</a> one. If you get stuck or have any suggestions, please create an issue <a href="https://github.com/acuminous/defcon-main">here</a>.
+    {{/if}}
+</div>
