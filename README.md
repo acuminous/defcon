@@ -1,6 +1,5 @@
 # DEFCON
-
-DEFCON keeps you aware of the state of your sofware and infrastructure, by listening for events and forwarding them to event handlers. You listen to events by installing one or more "gateway" plugins (REST, AMQP, etc), and you bring them to your attention by installing one or more handler plugins (web ui, audio, logstash, etc). 
+DEFCON is a multi-scensory information radiator that reports of the health of your software and infrastruture. 
 
 ## Prerequisits
 1. [nodejs](http://nodejs.org)
