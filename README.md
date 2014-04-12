@@ -1,5 +1,5 @@
 # DEFCON
-DEFCON is a multi-scensory information radiator that reports of the health of your software and infrastruture. 
+DEFCON is a highly extensible, multi-scensory information radiator. Out of the box it does nothing, but by installing (or writing) the correct set of plugins it can become a dashboard for events transmitted via any network protocol you want. In addition to displaying these events, it can forward them to other system such as logstash or even another DEFCON instance. There are plugins which play audible alarms when certain events are received.
 
 ## Prerequisits
 1. [nodejs](http://nodejs.org)
