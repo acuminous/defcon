@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>DEFCON by acuminous</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>DEFCON</h1>
+          <h2>The multi-sensory information radiator</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/acuminous/defcon/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/acuminous/defcon/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/acuminous/defcon" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="defcon" class="anchor" href="#defcon"><span class="octicon octicon-link"></span></a>DEFCON</h1>
+
+<p>DEFCON keeps you aware of the state of your sofware and infrastructure, by listening for events and forwarding them to event handlers. You listen to events by installing one or more "gateway" plugins (REST, AMQP, etc), and you bring them to your attention by installing one or more handler plugins (web ui, audio, logstash, etc). </p>
+
+<h2>
+<a name="prerequisits" class="anchor" href="#prerequisits"><span class="octicon octicon-link"></span></a>Prerequisits</h2>
+
+<ol>
+<li><a href="http://nodejs.org">nodejs</a></li>
+</ol><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-bash"><pre>mkdir defcon
+<span class="nb">cd </span>defcon
+npm install defcon
+</pre></div>
+
+<h2>
+<a name="recommended-plugins" class="anchor" href="#recommended-plugins"><span class="octicon octicon-link"></span></a>Recommended Plugins</h2>
+
+<p>DEFCON is useless without plugins. A basic set is provided via individual npm modules which should be installed (with <code>npm install</code>) from the defcon installiation directory, so that the modules are installed as syblings of defcon rather than children, e.g.</p>
+
+<pre><code>/var/opt/defcon$ tree -d -L 2
+.
+└── node_modules
+    ├── defcon
+    ├── defcon-event-log
+    └── defcon-rest-gateway
+</code></pre>
+
+<p>The recommended plugins are as follows. Please see their README.md files for installation and configuration.</p>
+
+<table>
+<thead><tr>
+<th>Plugin</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><a href="http://github.com/acuminous/defcon-rest-gateway">REST Gateway</a></td>
+<td>Enables DEFCON to receive events via HTTP</td>
+</tr>
+<tr>
+<td><a href="http://github.com/acuminous/defcon-event-log">Event Log</a></td>
+<td>Displays a paginated, sortable &amp; filterable table of events</td>
+</tr>
+<tr>
+<td><a href="http://github.com/acuminous/defcon-logstash-udp">Logstash UDP</a></td>
+<td>Forwards events to logstash via UDP</td>
+</tr>
+</tbody>
+</table><p>More plugins are planned and we welcome contributions.</p>
+
+<h2>
+<a name="starting" class="anchor" href="#starting"><span class="octicon octicon-link"></span></a>Starting</h2>
+
+<div class="highlight highlight-bash"><pre><span class="nv">NODE_ENV</span><span class="o">=</span>production node node_modules/defcon/server.js
+</pre></div>
+
+<p>DEFCON starts on localhost:8080 by default. You can override this (and any other configuration setting) from the command line, e.g.</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">NODE_ENV</span><span class="o">=</span>production node node_modules/defcon/server --server.port<span class="o">=</span>9090
+</pre></div>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Configuration is loaded from the following files if they exist</p>
+
+<ol>
+<li>$INSTALL_DIR/conf/default.json</li>
+<li>$INSTALL_DIR/conf/.json</li>
+<li>$INSTALL_DIR/conf/.json</li>
+<li>$INSTALL_DIR/etc/defcon/defcon.json</li>
+</ol><p>You can also specify an additional configuration file from the command line, e.g. </p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">NODE_ENV</span><span class="o">=</span>production node node_modules/defcon/server.js --config<span class="o">=</span>/path/to/config.json
+</pre></div>
+
+<p>The final configuration is a merge of the individual configuration files and the command line arguments.</p>
+
+<p>Since defcon is a container for plugins, it's configuration options are minimal. We suggest you add custom settings to /etc/defcon/defcon.json or in a file specified on via the command line, since this is the easiest 
+option for upgrades.</p>
+
+<div class="highlight highlight-js"><pre><span class="p">{</span>
+    <span class="s2">"server"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"host"</span><span class="o">:</span> <span class="s2">"0.0.0.0"</span><span class="p">,</span>
+        <span class="s2">"port"</span><span class="o">:</span> <span class="mi">8080</span><span class="p">,</span>
+        <span class="s2">"workers"</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">},</span>
+    <span class="s2">"plugins"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// Specify the list of installed plugins. Order will dictate where the plugins appear in the UI</span>
+        <span class="nx">installed</span><span class="o">:</span> <span class="p">[],</span>
+
+        <span class="c1">// Insert plugin configuration here, e.g.</span>
+        <span class="s2">"defcon-event-log"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"redis"</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">"host"</span><span class="o">:</span> <span class="s2">"localhost"</span><span class="p">,</span>
+                <span class="s2">"port"</span><span class="o">:</span> <span class="mi">6379</span><span class="p">,</span>
+                <span class="s2">"db"</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"options"</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="s2">"enable_offline_queue"</span><span class="o">:</span> <span class="kc">false</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"pageSize"</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+            <span class="s2">"pages"</span><span class="o">:</span> <span class="mi">10</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"logging"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// Any entries will be passed directly to winston</span>
+        <span class="s2">"file"</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">"transport"</span><span class="o">:</span> <span class="s2">"File"</span><span class="p">,</span>
+            <span class="s2">"filename"</span><span class="o">:</span> <span class="s2">"defcon.log"</span><span class="p">,</span>
+            <span class="s2">"maxsize"</span><span class="o">:</span> <span class="mi">1048576</span><span class="p">,</span>
+            <span class="s2">"maxFiles"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"level"</span><span class="o">:</span> <span class="s2">"info"</span><span class="p">,</span>
+            <span class="s2">"colorize"</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+        </section>
+
+        <footer>
+          DEFCON is maintained by <a href="https://github.com/acuminous">acuminous</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
